@@ -45,7 +45,7 @@ env_sampler = sample_exponential(l_param)
 samples = rejection_sampler(num_of_samples, normal, env, env_sampler)
 
 for s in np.nditer(samples, op_flags=['readwrite']):
-    if rdm.random() <= 0.5:
+    if rdm.random() < 0.5:
         s[...] = - s
 sbn.distplot(samples)
 
