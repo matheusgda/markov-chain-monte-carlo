@@ -1,6 +1,6 @@
 import numpy as np
 
-__all__ = ["ring_rw", "full_bin_tree"]
+__all__ = ["ring_rw", "full_bin_tree", "grid2D"]
 
 # "grid_2D_rw", , "full_bin_tree_rw"
 
@@ -25,16 +25,37 @@ def full_bin_tree(k):
 
 # grid 2D
 
-def grid2D(w, h):
+def grid2D(w,h):
+    deg, adj_mat = grid2D_adj(w,h)
+    return rd_matrix(deg, adj_mat)
+
+
+def grid2D_adj(w, h):
     n = w * h
     adj_mat = np.zeros((n,n))
     deg = np.zeros(n)
     for x in range(w):
+        print(x, "x")
         for y in range(h):
-        v = w * (j) + (x - 1)
-        d = np.array([v,v,v,v]) + np.array([w, -w, 1, -1])
-        for u in d:
-            if u > 0
+            # print(y, "y")
+            v = (w * y) + x
+            print(v)
+            u = list()
+            if v % w != 0:
+                u.append(v - 1)
+            if (y + 1) * w - v != 1:
+                u.append(v + 1)
+            if v + w  < n:
+                u.append(v + w)
+            if v - w >= 0:
+                u.append(v - w)
+            for s in u:
+                print(u,v)
+                adj_mat[v][s] = 1
+                adj_mat[v][v] += 1
+                deg[s] += 1
+                deg[v] += 1
+    return deg, adj_mat
 
 def full_bin_tree_adj(k):
     n = (2 ** (k + 1)) - 1
@@ -65,7 +86,7 @@ def full_bin_tree_adj(k):
 def rd_matrix(degrees, adj_matrix):
     t_deg = np.sum(degrees)
     rd_mat = np.copy(adj_matrix)
-    for i in range(len(rd_mat)):
-        rd_mat[i] = rd_mat[i] / degrees[i]
+    # for i in range(len(rd_mat)):
+        # rd_mat[i] = rd_mat[i] / degrees[i]
         # np.sum(rd_mat[i])
     return rd_mat
