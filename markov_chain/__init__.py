@@ -19,6 +19,7 @@ class MarkovChain:
 
     # compute empirical stationary distribuition
     def power_method(self, eps):
+        print("states", self.states)
         d1 = np.zeros(self.states)
         d1[0] = 1
         d2 = np.zeros(self.states)
@@ -26,10 +27,10 @@ class MarkovChain:
         mix_t = 1
         total_var = [1]
 
-        while(total_variation(d1, d2) > eps): # search for fist convergence step
-            d2 = d1
-            power_probs = np.matmul(power_probs, power_probs)
-            mix_t = mix_t * 2
+        while total_variation(d1, d2) > eps:
+            d2 = np.copy(d1)
+            # power_probs = np.matmul(power_probs, power_probs)
+            mix_t += 1
             d1 = np.dot(d1, power_probs)
 
         # while(total_variation(d1,d2) > eps): # finish with logarithmic factor
