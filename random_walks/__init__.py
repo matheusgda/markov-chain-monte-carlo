@@ -35,11 +35,8 @@ def grid2D_adj(w, h):
     adj_mat = np.zeros((n,n))
     deg = np.zeros(n)
     for x in range(w):
-        print(x, "x")
         for y in range(h):
-            # print(y, "y")
             v = (w * y) + x
-            print(v)
             u = list()
             if v % w != 0:
                 u.append(v - 1)
@@ -50,7 +47,6 @@ def grid2D_adj(w, h):
             if v - w >= 0:
                 u.append(v - w)
             for s in u:
-                print(u,v)
                 adj_mat[v][s] = 1
                 adj_mat[v][v] += 1
                 deg[s] += 1
@@ -68,7 +64,6 @@ def full_bin_tree_adj(k):
         right_dist = v - (2 ** h_i)
         left_dist = ((2 ** (h_i + 1)) - 1) - v
         j = 2 * right_dist + (2 ** (h_i + 1))
-        print(i,j, j - 1)
         deg[i] += 2
         deg[j] += 1
         deg[j - 1] += 1
@@ -86,7 +81,6 @@ def full_bin_tree_adj(k):
 def rd_matrix(degrees, adj_matrix):
     t_deg = np.sum(degrees)
     rd_mat = np.copy(adj_matrix)
-    # for i in range(len(rd_mat)):
-        # rd_mat[i] = rd_mat[i] / degrees[i]
-        # np.sum(rd_mat[i])
+    for i in range(len(rd_mat)):
+        rd_mat[i] = rd_mat[i] / degrees[i]
     return rd_mat
